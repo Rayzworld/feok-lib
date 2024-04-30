@@ -5,7 +5,7 @@
         <li
           v-if="!flod || index === 0"
           :key="item+index"
-          @click="showImage(item)"
+          @click="showImage(item, index)"
           :style="{width: `${width}px`,height: `${height}px`}">
             <div class="video__wrap" v-if="checkTv(item)" >
               <div class="video_click" @click="playVideo(item)" ></div>
@@ -19,9 +19,10 @@
       style="display:none;"
       :images="picList"
       @inited="inited"
+      :initialViewIndex="initialViewIndex"
       ref="viewer">
       <template slot-scope="scope">
-        <img v-for="src in scope.images" :src="src" :key="src">
+        <img v-for="(src) in scope.images" :src="src" :key="src">
       </template>
     </viewer>
      <el-dialog
@@ -62,11 +63,13 @@ export default class PictureAlbum extends Vue {
   @Prop({ type: Array}) public picList!: string[] ;
   @Prop({ type: Number, default: 60 }) public width!: number;
   @Prop({ type: Number, default: 60 }) public height!: number;
-  @Prop({
+
+@Prop({
     default: false,
   }) public flod!: boolean;
 
   public videoUrl = '';
+  public initialViewIndex = 0;
 
   public dialogVisible = false;
   public $viewer: any = null;
@@ -79,6 +82,7 @@ export default class PictureAlbum extends Vue {
     return false;
   }
 
+
   public inited(viewer: any) {
     this.$viewer = viewer;
   }
@@ -87,8 +91,15 @@ export default class PictureAlbum extends Vue {
     this.dialogVisible = true;
   }
 
-  public showImage(data: string) {
+  public showImage(data: string, index: number) {
     if (!this.checkTv(data)) {
+     console.log('img index =====', index)
+      this.initialViewIndex = index;
+       if( index > 0 ) {
+        this.$nextTick(()=>{
+            this.$viewer.update().view(index)
+        })
+    }
       this.$viewer.show();
     }
   }
