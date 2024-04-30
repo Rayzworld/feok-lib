@@ -240,8 +240,8 @@ export default class DatePicker extends Vue {
                 starttime = year + '-07-1 ';
                 endtime = year + '-09-30 ';
               } else {
-                starttime = year * 1 - 1 + '-10-1 ';
-                endtime = year * 1 - 1 + '-12-31 ';
+                starttime = year * 1 + '-10-1 ';
+                endtime = year * 1 + '-12-31 ';
               }
 
               if (!boo) {
