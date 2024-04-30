@@ -1,9 +1,9 @@
 {
-  "name": "feok-lib",
-  "version": "1.1.22",
+  "name": "feok-lib2",
+  "version": "1.1.23",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/cys85/feok-lib.git"
+    "url": "git+https://github.com/Rayzworld/feok-lib.git"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
